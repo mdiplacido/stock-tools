@@ -16,3 +16,18 @@ export async function writeResult(kind: DataKind, name: string, data: any): Prom
     await FsAsync.writeAsync(fullPath, JSON.stringify(data));
     return data;
 }
+
+export async function tryLoadFromCache(kind: DataKind, name: string): Promise<{ readonly exists: boolean, readonly data: any }> {
+    const fullPath = await makeCachePath(kind, name);
+    const exists = await FsAsync.pathExists(fullPath);
+
+    // tslint:disable-next-line:no-if-statement
+    if (exists) {
+        console.warn(`Using cached data: ${fullPath}`);
+    }
+
+    return exists ? 
+        ({ exists: true, data: await FsAsync.readFileAsync(fullPath) }) :
+        ({ exists: false, data: null })
+
+}
