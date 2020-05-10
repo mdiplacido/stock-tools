@@ -13,6 +13,7 @@
     "build": "run-s clean && run-p build:*",
     "build:main": "tsc -p tsconfig.json",
     "build:module": "tsc -p tsconfig.module.json",
+    "debug": "node --nolazy --inspect-brk=9229 build/main/index.js --holdings=./data/holdings.csv",
     "fix": "run-s fix:*",
     "fix:prettier": "prettier \"src/**/*.ts\" --write",
     "fix:tslint": "tslint --fix --project .",
@@ -54,10 +55,12 @@
   "dependencies": {
     "alphavantage": "^1.2.0",
     "fs-extra": "^7.0.0",
-    "papaparse": "^4.6.1",
-    "sha.js": "^2.4.11"
+    "papaparse": "^5.2.0",
+    "sha.js": "^2.4.11",
+    "yargs": "^15.3.1"
   },
   "devDependencies": {
+    "@types/yargs": "^15.0.4",
     "ava": "1.0.0-beta.7",
     "codecov": "^3.1.0",
     "cz-conventional-changelog": "^2.1.0",
